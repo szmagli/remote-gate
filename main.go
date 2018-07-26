@@ -42,7 +42,7 @@ func main() {
 	flags()
 
 	signalChan := make(chan os.Signal, 1)
-	cleanupDone := make(chan struct{})
+	// cleanupDone := make(chan struct{})
 	signal.Notify(signalChan, os.Interrupt)
 }
 
