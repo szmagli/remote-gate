@@ -8,12 +8,12 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/remote-gate/controller"
+	"github.com/szmagli/remote-gate/controller"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	"github.com/remote-gate/users"
+	"github.com/szmagli/remote-gate/users"
 )
 
 func flags() {
