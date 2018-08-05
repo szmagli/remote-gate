@@ -100,7 +100,7 @@ func Manual(c *gin.Context) {
 
 func SetGate() {
 	firmataAdaptor := firmata.NewAdaptor("/dev/ttyACM0")
-	led := gpio.NewLedDriver(firmataAdaptor, "8")
+	led := gpio.NewLedDriver(firmataAdaptor, "9")
 
 	work := func() {
 		gobot.Every(1*time.Second, func() {

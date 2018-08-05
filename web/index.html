@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/free.player.1.8.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/vue-dev.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-if="!logged" class="authorization">
+            <input v-model="login" type="text" placeholder="login">
+            <input v-model="password" type="password" placeholder="hasło">
+            <button @click="authorize">Zaloguj</button>
+        </div>
+        <div v-show="logged" class="control">
+            <div class="status online">Online</div>
+            <div v-if="gate" class="status success">Otwarta</div>
+            <div v-else class="status danger">Zamknięta</div>
+            <input v-model="timer" type="number">
+            <button v-if="interval" @click="Start">Pauza</button>
+            <button v-else @click="Start">Uruchom</button>
+            <button @click="Manual">Przełącz manualnie</button>
+            <video ref="video" id="test_video" controls autoplay>
+            </video>
+        </div>
+    </div>
+</body>
+<script src="js/app.js"></script>

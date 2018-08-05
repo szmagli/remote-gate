@@ -8,7 +8,6 @@ import (
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type (
@@ -47,14 +46,8 @@ func usr() {
 
 // CreateUser with role in gob file
 func CreateUser(login string, password string, role int) {
-	password, err := HashPassword(password)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(login, password)
-
 	var usersRead = new(Users)
-	err = readGob("./data/users.gob", usersRead)
+	err := readGob("./data/users.gob", usersRead)
 	if err != nil {
 		fmt.Println(err)
 	} else {
@@ -73,15 +66,13 @@ func CreateUser(login string, password string, role int) {
 func Login(c *gin.Context) {
 	var u User
 	if err := c.ShouldBind(&u); err == nil {
-		fmt.Println(u)
-		token := checkLogin(u)
-		if token == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"messge": "Invalid cerdinails"})
-		} else {
+		if checkLogin(u) {
 			session := sessions.Default(c)
 			session.Set("logged", true)
 			session.Save()
 			c.JSON(http.StatusOK, gin.H{"message": "successfully logged in"})
+		} else {
+			c.JSON(http.StatusUnauthorized, gin.H{"messge": "Invalid cerdinails"})
 		}
 	} else {
 		session := sessions.Default(c)
@@ -91,24 +82,23 @@ func Login(c *gin.Context) {
 	}
 }
 
-func checkLogin(user User) string {
+func checkLogin(user User) bool {
 	var usersRead = new(Users)
 	err := readGob("./data/users.gob", usersRead)
 	if err != nil {
 		fmt.Println(err)
-		return ""
+		return false
 	}
 
 	for _, usr := range usersRead.Users {
 		if usr.Login == user.Login {
-			if CheckPasswordHash(user.Password, usr.Password) {
-				return "yolo"
+			if user.Password == usr.Password {
+				return true
 			}
 		}
 	}
 
-	return ""
-
+	return false
 }
 
 func writeGob(filePath string, object interface{}) error {
@@ -129,14 +119,4 @@ func readGob(filePath string, object interface{}) error {
 	}
 	file.Close()
 	return err
-}
-
-func HashPassword(password string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
-	return string(bytes), err
-}
-
-func CheckPasswordHash(password, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
 }

@@ -1,0 +1,105 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    min-height: 600px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.authorization{
+    display: flex;
+    padding: 15px;
+    background: #e5e3e3;
+    border-radius: 4px;
+}
+
+button {
+    cursor: pointer;
+    background: transparent;
+    border: solid 1px #2f8cff;
+    color: #2f8cff;
+    border-radius: 2px;
+    padding: 5px 10px;
+    margin: 5px;
+
+    transition: .5s;
+}
+
+button:hover {
+    background: #2f8cff;
+    color: #fff;
+    transition: .5s;
+}
+
+input{
+    border: solid 1px #2f8cff;
+    padding: 5px;
+    margin: 5px;
+}
+
+.control{
+    display: block;
+}
+
+.status{
+    display: inline-block;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 3px;
+    
+}
+
+.status.success{
+    border: solid 1px #10d944;
+    animation: success 2s infinite;
+}
+.status.danger{
+    border: solid 1px #d91010;
+    animation: danger 2s infinite;
+}
+.status.online{
+    border: solid 1px #2f8cff;
+    animation: online 2s infinite;
+}
+
+@keyframes success {
+    from {
+        border-color: #10d944;
+    }
+    to {
+        border-color: #10d9ad;
+    }
+}
+
+@keyframes danger {
+    from {
+        border-color: #d91010;
+    }
+    to {
+        border-color: #d97f10
+    }
+}
+
+@keyframes online {
+    from {
+        border-color: #2f8cff;
+    }
+    to {
+        border-color: #2f32ff;
+    }
+}
+
+
+video {
+    flex-basis: 100%;
+    display: block;
+    min-width: 600px;
+    width: auto;
+    max-width: 1000px;
+}
