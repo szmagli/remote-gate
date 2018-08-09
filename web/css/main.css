@@ -103,3 +103,9 @@ video {
     width: auto;
     max-width: 1000px;
 }
+
+.video-image{
+    max-width: 600px;
+    display: block;
+    height: auto;
+}

@@ -25,8 +25,10 @@
             <button v-if="interval" @click="Start">Pauza</button>
             <button v-else @click="Start">Uruchom</button>
             <button @click="Manual">Przełącz manualnie</button>
-            <video ref="video" id="test_video" controls autoplay>
-            </video>
+            <!-- <video ref="video" controls autoplay>
+                <source :src="stream">
+            </video> -->
+            <img id="browser_video" class="video-image" alt="video" :src="stream">
         </div>
     </div>
 </body>

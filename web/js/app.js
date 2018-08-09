@@ -17,6 +17,7 @@ var app = new Vue({
         gate: false,
         timer: 0,
         interval: false,
+        rstp: ''
     },
     mounted: function () {
         this.getStatus()
@@ -59,29 +60,6 @@ var app = new Vue({
         setCamera: function (url) {
             console.log(url)
             this.stream = url;
-            console.log(this.$refs)
-            var player = document.getElementById('test_video');
-            var rtspsource = document.createElement("source");
-            rtspsource.src = url;
-            console.log(player)
-            console.log(this.$refs["video"])
-            player.appendChild(rtspsource);
-            Streamedian.player('test_video', {
-                socket: "wss://streamedian.com/ws/"
-            });
-            var range = document.getElementById('rate');
-            var set_live = document.getElementById('to_end');
-            var range_out = document.getElementById('rate_res');
-            range.addEventListener('input', function () {
-                player.playbackRate = range.value;
-                range_out.innerHTML = `x${range.value}`;
-            });
-            set_live.addEventListener('click', function () {
-                range.value = 1.0;
-                range_out.innerHTML = `live`;
-                player.playbackRate = 1;
-                player.currentTime = player.buffered.end(0); //player.seekable.end(player.seekable.length - 1);
-            });
 
         },
         Start: function () {
